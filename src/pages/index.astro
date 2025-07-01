@@ -1,0 +1,36 @@
+---
+import Todo from "../components/Todo.svelte";
+import Counter from "../components/Counter.svelte";
+import Gallery from "../components/Gallery.jsx";
+import Hero from "../components/Hero.astro";
+import GalleryLayout from "../layouts/GalleryLayout.astro";
+import TodoLayout from "../layouts/TodoLayout.astro";
+import Layout from "../layouts/Layout.astro";
+import Pokemon from "../components/Pokemon.astro";
+import Scrollytelling from "../components/Scrollytelling.astro";
+import Video from "../components/Video.astro";
+---
+
+<Layout>
+  <Hero />
+
+  <Video />
+
+  <GalleryLayout>
+    <Gallery client:visible />
+  </GalleryLayout>
+
+  <Scrollytelling />
+
+  <TodoLayout>
+    <Todo task="Buy groceries" />
+    <Todo task="Walk dog" />
+    <Todo task="Read newspaper" />
+  </TodoLayout>
+
+  <Pokemon />
+
+  <GalleryLayout>
+    <Counter client:visible />
+  </GalleryLayout>
+</Layout>

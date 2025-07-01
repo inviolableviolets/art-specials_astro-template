@@ -1,0 +1,57 @@
+---
+import astroLogo from "../assets/astro.svg";
+import background from "../assets/background.svg";
+---
+
+<div id="container">
+  <img id="background" src={background.src} alt="" fetchpriority="high" />
+  <main>
+    <section id="hero">
+      <h1>ART SPECIALS DEMO w/</h1>
+      <img src={astroLogo.src} width="115" height="48" alt="Astro Homepage" />
+    </section>
+  </main>
+</div>
+
+<style>
+  #background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    filter: blur(100px);
+  }
+
+  #container {
+    font-family: Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans",
+      Arial, sans-serif;
+    height: 100%;
+  }
+
+  main {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  #hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-content: center;
+  }
+
+  img {
+    padding-top: 0.5rem;
+    margin-left: -0.15rem;
+  }
+
+  @media (max-width: 600px) {
+    #hero {
+      scale: 0.7;
+      white-space: nowrap;
+    }
+  }
+</style>

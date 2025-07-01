@@ -1,0 +1,433 @@
+---
+import Layout from "../layouts/Layout.astro";
+import slides from "../data/slides.json";
+---
+
+<Layout>
+  <div class="scroll-slider">
+    <div class="scroll-slider--header">
+      <div class="cintillo"></div>
+    </div>
+
+    <div class="scroll-slider--content">
+      <div class="scroll-slider__media">
+        {
+          slides.map(({ id, imgDesktop, imgMobile }) => (
+            <figure class={id}>
+              <img
+                src={imgDesktop}
+                loading="lazy"
+                class="media-desktop"
+                alt=""
+              />
+              <img src={imgMobile} loading="lazy" class="media-mobile" alt="" />
+            </figure>
+          ))
+        }
+      </div>
+
+      <div class="scroll-slider__cards">
+        {
+          slides.map(({ id, date, text }) => (
+            <ul id={id}>
+              <li>
+                <div class="card-header">{date}</div>
+                <p set:html={text} />
+              </li>
+            </ul>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Gloock&family=Petrona:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+  @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Petrona:ital,wght@0,100..900;1,100..900&display=swap");
+
+  section {
+    width: 50vw;
+    margin: 0 auto;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    text-transform: uppercase;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  a {
+    all: unset;
+    cursor: pointer;
+    font-size: 10rem;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  .scroll-slider {
+    --background: #ffffff;
+    --primary: #000000; /* color del texto y poco más */
+    --secondary: #ff130d; /* para la hozra y texto destacado del cintillo */
+    --ternary: #e6e3e3; /* para bordes y sombras de las tarjetas */
+    --highlight1: #ff130d; /* para los textos subrayados */
+    --highlight2: #4c6a3b;
+    --highlight3: #ca4e14;
+    --highlight4: #41779d;
+  }
+
+  .scroll-slider.invertia {
+    --primary: #000000;
+    --secondary: #d33e49;
+    --ternary: rgb(235, 212, 197);
+    --background: #ffebdc;
+    --highlight1: #d33e49;
+    --highlight2: #d33e49;
+    --highlight3: #d33e49;
+    --highlight4: #d33e49;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Petrona", serif;
+    list-style: none;
+  }
+
+  .scroll-slider {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+  .scroll-slider .scroll-slider__media,
+  .scroll-slider .scroll-slider--header {
+    will-change: transform;
+  }
+  .scroll-slider ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .scroll-slider .card-hour {
+    position: relative;
+    width: max-content;
+    margin-bottom: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    height: 2rem;
+    border: 2px solid var(--secondary);
+    padding: 0 0.5rem;
+  }
+  .scroll-slider .card-hour::before {
+    position: absolute;
+    content: "";
+    height: 5px;
+    width: 5px;
+    background: var(--secondary);
+    border-radius: 50%;
+    top: 50%;
+    left: calc(0.5rem + 10px);
+    transform: translate(-50%, -50%);
+    z-index: 10000;
+  }
+  .scroll-slider .card-hour::after {
+    position: absolute;
+    content: "";
+    height: 5px;
+    width: 5px;
+    background: radial-gradient(var(--secondary), transparent);
+    border-radius: 50%;
+    top: 50%;
+    left: calc(0.5rem + 10px);
+    z-index: 10000;
+    transition: all 0.3s;
+    animation: expand-circle 1s infinite ease-in-out;
+  }
+  @keyframes expand-circle {
+    0% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(2.5);
+      opacity: 0.5;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+  }
+  .scroll-slider .card-hour span {
+    font-family: "Open Sans", sans-serif;
+    color: var(--secondary);
+    font-weight: bold;
+    margin-left: 6px;
+  }
+  .scroll-slider .card-hour img {
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+    filter: brightness(1.2);
+  }
+  .scroll-slider .cintillo {
+    color: var(--primary);
+    padding: 2rem 0;
+  }
+  .scroll-slider .card-highlight1 {
+    background: var(--highlight1);
+    padding: 0.2rem;
+    margin-right: 0.2rem;
+    color: var(--background);
+  }
+  .scroll-slider .card-highlight2 {
+    background: var(--highlight2);
+    padding: 0.2rem;
+    margin-right: 0.2rem;
+    color: var(--background);
+  }
+  .scroll-slider .card-highlight3 {
+    background: var(--highlight3);
+    padding: 0.2rem;
+    margin-right: 0.2rem;
+    color: var(--background);
+  }
+  .scroll-slider .card-highlight4 {
+    background: var(--highlight4);
+    padding: 0.2rem;
+    margin-right: 0.2rem;
+    color: var(--background);
+  }
+  .scroll-slider--header {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 0;
+    padding: 1rem 0;
+    text-transform: uppercase;
+    border-bottom: none;
+    background: var(--background);
+    z-index: 5;
+    display: none;
+  }
+  .scroll-slider--header::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 6rem;
+    width: 100%;
+    background: linear-gradient(var(--background), transparent);
+    z-index: 5;
+  }
+  @media all and (max-width: 500px) {
+    .scroll-slider--header::before {
+      display: none;
+    }
+  }
+  .scroll-slider--header .cintillo,
+  .scroll-slider--header span {
+    display: none;
+    gap: 0.3rem;
+    font-family: "Open Sans", serif;
+    font-size: 1.125rem;
+    font-weight: 700;
+  }
+  .scroll-slider--header span {
+    color: var(--secondary);
+  }
+  @media all and (max-width: 500px) {
+    .scroll-slider--header {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .scroll-slider--header .cintillo,
+    .scroll-slider--header span {
+      font-size: 1rem;
+      text-align: center;
+      gap: 0.2rem;
+    }
+  }
+  .scroll-slider--content {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    background-color: var(--background);
+  }
+  .scroll-slider--content figure:first-of-type {
+    opacity: 1 !important;
+    filter: none;
+  }
+  .scroll-slider__media {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    top: 0;
+    background: var(--background);
+  }
+  @media all and (max-width: 500px) {
+    .scroll-slider__media::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6rem;
+      height: 6rem;
+      width: 100%;
+      background: linear-gradient(var(--background), transparent);
+      z-index: 1001;
+    }
+  }
+  .scroll-slider__media > figure {
+    position: absolute;
+    left: 50%;
+    top: 51%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    opacity: 0;
+    z-index: 0;
+    transition:
+      opacity 0.3s ease,
+      filter 0.5s ease;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .scroll-slider__media > figure img,
+  .scroll-slider__media > figure video {
+    max-height: 85vh;
+    height: 100% !important;
+    width: auto !important;
+    object-fit: cover;
+  }
+  @media all and (max-width: 500px) {
+    .scroll-slider__media > figure {
+      transform: translate(-50%, -50%);
+      width: 100% !important;
+    }
+    .scroll-slider__media > figure img,
+    .scroll-slider__media > figure video {
+      height: auto !important;
+      object-fit: cover;
+    }
+  }
+  .scroll-slider__cards {
+    width: 100%;
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background);
+  }
+  .scroll-slider__cards ul:last-of-type li:last-child {
+    margin-bottom: 100vh;
+  }
+  @media all and (max-width: 500px) {
+    .scroll-slider__cards {
+      margin-top: 50vh;
+    }
+  }
+  .scroll-slider__cards--markers {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .scroll-slider__cards--markers:last-of-type {
+    padding-bottom: 90vh;
+  }
+  .scroll-slider__cards li {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 45vh 0;
+    line-height: 1.5;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 0 30px var(--ternary);
+    background: var(--background);
+    z-index: 2;
+  }
+  .scroll-slider__cards li .card-header {
+    position: relative;
+    display: block;
+    font-weight: bolder;
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+  }
+  .scroll-slider__cards li .card-header::before {
+    content: "";
+    height: 2px;
+    width: 33.3%;
+    background: var(--ternary);
+    position: absolute;
+    bottom: -0.5rem;
+  }
+  @media all and (max-width: 1024px) {
+    .scroll-slider__cards li {
+      width: 60%;
+      padding: 2rem;
+    }
+  }
+  @media all and (max-width: 500px) {
+    .scroll-slider__cards li {
+      width: 70% !important;
+      padding: 1.5rem 1.5rem;
+      line-height: 1.2rem;
+    }
+  }
+  @media all and (max-width: 450px) {
+    .scroll-slider__cards li {
+      font-size: 0.85rem;
+      width: 100%;
+    }
+    .scroll-slider__cards li .card-header {
+      font-size: 1rem;
+    }
+  }
+  .scroll-slider .card-header {
+    text-align: left !important;
+  }
+  .scroll-slider .media-desktop {
+    display: inline;
+  }
+  .scroll-slider .media-mobile {
+    display: none;
+  }
+  @media (max-width: 600px) {
+    .scroll-slider .media-desktop {
+      display: none;
+    }
+    .scroll-slider .media-mobile {
+      display: inline;
+    }
+  }
+
+  .scroll-slider p {
+    margin-bottom: 0 !important;
+    text-align: left !important;
+    text-wrap: pretty;
+  }
+
+  .italic {
+    font-style: italic;
+  }
+
+  span.button__go__home--icon {
+    display: none;
+  }
+</style>
+
+<script>
+  import("../scripts/scrollytelling.js");
+</script>
